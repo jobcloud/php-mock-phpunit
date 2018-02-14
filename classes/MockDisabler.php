@@ -3,8 +3,9 @@
 namespace phpmock\phpunit;
 
 use phpmock\Deactivatable;
-use PHPUnit\Framework\BaseTestListener;
 use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestListenerDefaultImplementation;
 
 /**
  * Test listener for PHPUnit integration.
@@ -16,8 +17,9 @@ use PHPUnit\Framework\Test;
  * @license http://www.wtfpl.net/txt/copying/ WTFPL
  * @internal
  */
-class MockDisabler extends BaseTestListener
+class MockDisabler implements TestListener
 {
+    use TestListenerDefaultImplementation;
 
     /**
      * @var Deactivatable The function mocks.
@@ -37,15 +39,13 @@ class MockDisabler extends BaseTestListener
     /**
      * Disables the function mocks.
      *
-     * @param Test $test The test.
-     * @param int  $time The test duration.
+     * @param Test  $test The test.
+     * @param float $time The test duration.
      *
      * @see Mock::disable()
      */
-    public function endTest(Test $test, $time)
+    public function endTest(Test $test, float $time): void
     {
-        parent::endTest($test, $time);
-        
         $this->deactivatable->disable();
     }
 }

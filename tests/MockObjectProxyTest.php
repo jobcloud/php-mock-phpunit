@@ -2,7 +2,8 @@
 
 namespace phpmock\phpunit;
 
-use \PHPUnit_Framework_MockObject_Builder_InvocationMocker as InvocationMocker;
+use PHPUnit\Framework\MockObject\Matcher\Invocation;
+use PHPUnit\Framework\MockObject\Builder\InvocationMocker as BuilderInvocationMocker;
 use PHPUnit\Framework\TestCase;
 use phpmock\integration\MockDelegateFunctionBuilder;
 
@@ -25,9 +26,9 @@ class MockObjectProxyTest extends TestCase
      */
     public function testExpects()
     {
-        $matcher = $this->getMockBuilder(\PHPUnit_Framework_MockObject_Matcher_Invocation::class)->getMock();
+        $matcher = $this->getMockBuilder(Invocation::class)->getMock();
 
-        $invocationMocker = $this->getMockBuilder(InvocationMocker::class)->disableOriginalConstructor()->getMock();
+        $invocationMocker = $this->getMockBuilder(BuilderInvocationMocker::class)->disableOriginalConstructor()->getMock();
         $invocationMocker->expects($this->once())->method("method")
                 ->with(MockDelegateFunctionBuilder::METHOD)->willReturn($invocationMocker);
 

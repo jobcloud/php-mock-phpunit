@@ -4,7 +4,9 @@ namespace phpmock\phpunit;
 
 use phpmock\integration\MockDelegateFunctionBuilder;
 use phpmock\MockBuilder;
+use PHPUnit\Framework\MockObject\MockBuilder as PHPUnitMockBuilder;
 use phpmock\Deactivatable;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Adds building a function mock functionality into \PHPUnit\Framework\TestCase.
@@ -42,9 +44,8 @@ trait PHPMock
      * This method exists in \PHPUnit\Framework\TestCase.
      *
      * @param string $className Name of the class to mock.
-     * @return \PHPUnit_Framework_MockObject_MockBuilder
+     * @return PHPUnitMockBuilder
      * @see \PHPUnit\Framework\TestCase::getMockBuilder()
-     * @internal
      */
     abstract protected function getMockBuilder($className);
 
@@ -67,7 +68,7 @@ trait PHPMock
      * @param string $namespace The function namespace.
      * @param string $name      The function name.
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject The PHPUnit mock.
+     * @return MockObject The PHPUnit mock.
      */
     public function getFunctionMock($namespace, $name)
     {
